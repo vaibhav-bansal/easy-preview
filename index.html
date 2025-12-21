@@ -11,10 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
   
-  <!-- Material Symbols -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS 4.1 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -50,12 +47,6 @@
     ::-webkit-scrollbar-track { background: #2d2d2d; }
     ::-webkit-scrollbar-thumb { background: #404040; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #555; }
-    
-    /* Material icon alignment */
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      vertical-align: middle;
-    }
     
     /* Input focus states */
     input:focus, select:focus {
@@ -176,7 +167,12 @@
   <!-- Header -->
   <header class="flex items-center justify-between px-6 py-3 bg-surface-dark-2 border-b border-gray-700 shrink-0">
     <div class="flex items-center gap-3">
-      <span class="material-symbols-outlined text-primary-500 text-3xl">devices</span>
+      <span class="text-primary-500 w-8 h-8 inline-flex items-center justify-center" id="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+          <line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+      </span>
       <h1 class="text-xl font-medium">Easy Preview</h1>
     </div>
     
@@ -197,7 +193,11 @@
               title="Send Feedback" 
               class="btn-icon p-2 rounded-full transition-colors"
               disabled>
-        <span class="material-symbols-outlined">feedback</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <path d="M13 8H7"/>
+          <path d="M17 12H7"/>
+        </svg>
       </button>
       
       <!-- Theme Toggle -->
@@ -205,7 +205,10 @@
               title="System Theme" 
               class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10"
               aria-label="System Theme">
-        <span class="material-symbols-outlined">contrast</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2v20M12 2a10 10 0 0 1 10 10M12 2a10 10 0 0 0-10 10"/>
+        </svg>
       </button>
     </div>
   </header>
@@ -223,7 +226,9 @@
       
       <button id="load-button" 
               class="flex items-center gap-2 px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors">
-        <span class="material-symbols-outlined text-xl">play_arrow</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
         Load
       </button>
     </div>
@@ -265,14 +270,25 @@
         <button id="orientation-button" 
                 title="Toggle Orientation"
                 class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10">
-          <span class="material-symbols-outlined">screen_rotation</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M12 11h4"/>
+            <path d="M12 16h4"/>
+            <path d="M8 11h.01"/>
+            <path d="M8 16h.01"/>
+          </svg>
         </button>
         
         <button id="share-button" 
                 title="Share"
                 class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10"
                 disabled>
-          <span class="material-symbols-outlined">share</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -286,7 +302,11 @@
       
       <!-- Placeholder when no URL loaded -->
       <div id="preview-placeholder" class="flex flex-col items-center justify-center h-full text-gray-400 text-center p-10">
-        <span class="material-symbols-outlined text-6xl mb-4 opacity-50">web</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 mb-4 opacity-50">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
         <p>Enter a URL above and click Load to preview</p>
       </div>
       
@@ -311,7 +331,10 @@
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-medium">Share Preview</h2>
         <button id="close-share-dialog" class="btn-icon p-2 rounded-full hover:bg-white/10">
-          <span class="material-symbols-outlined">close</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
       </div>
       
@@ -361,7 +384,11 @@
           target="_blank"
           rel="noopener noreferrer"
           class="flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors">
-          <span class="material-symbols-outlined">open_in_new</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
           <span>Open Full-Screen Preview</span>
         </a>
       </div>
@@ -375,7 +402,10 @@
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-medium">Send Feedback</h2>
         <button id="close-feedback-dialog" class="btn-icon p-2 rounded-full hover:bg-white/10">
-          <span class="material-symbols-outlined">close</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
       </div>
       

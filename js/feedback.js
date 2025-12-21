@@ -115,8 +115,10 @@ function setupRatingStars() {
   for (let i = 1; i <= 5; i++) {
     const star = document.createElement('button');
     star.type = 'button';
-    star.className = 'rating-star text-3xl text-gray-400 hover:text-yellow-400 transition-colors cursor-pointer';
-    star.innerHTML = '<span class="material-symbols-outlined">star</span>';
+    star.className = 'rating-star text-gray-400 hover:text-yellow-400 transition-colors cursor-pointer';
+    star.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>`;
     star.dataset.rating = i;
     star.setAttribute('aria-label', `${i} star${i > 1 ? 's' : ''}`);
     
@@ -155,12 +157,19 @@ function highlightStars(rating) {
   const stars = document.querySelectorAll('.rating-star');
   stars.forEach((star, index) => {
     const starValue = index + 1;
+    const svg = star.querySelector('svg');
     if (starValue <= rating) {
       star.classList.remove('text-gray-400');
       star.classList.add('text-yellow-400');
+      if (svg) {
+        svg.setAttribute('fill', 'currentColor');
+      }
     } else {
       star.classList.remove('text-yellow-400');
       star.classList.add('text-gray-400');
+      if (svg) {
+        svg.setAttribute('fill', 'none');
+      }
     }
   });
 }
@@ -173,12 +182,21 @@ function updateRatingDisplay(rating) {
   const stars = document.querySelectorAll('.rating-star');
   stars.forEach((star, index) => {
     const starValue = index + 1;
+    const svg = star.querySelector('svg');
     if (starValue <= rating) {
       star.classList.remove('text-gray-400');
       star.classList.add('text-yellow-400');
+      // Change to filled star
+      if (svg) {
+        svg.setAttribute('fill', 'currentColor');
+      }
     } else {
       star.classList.remove('text-yellow-400');
       star.classList.add('text-gray-400');
+      // Change to outline star
+      if (svg) {
+        svg.setAttribute('fill', 'none');
+      }
     }
   });
 }
@@ -367,7 +385,10 @@ function showFeedbackSuccess() {
   
   feedbackFormContent.innerHTML = `
     <div class="flex flex-col items-center justify-center py-12">
-      <span class="material-symbols-outlined text-6xl mb-4 text-green-400">check_circle</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 mb-4 text-green-400">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
       <h3 class="text-xl font-medium mb-2">Thank You!</h3>
       <p class="text-gray-400 text-center">Your feedback has been submitted successfully.</p>
     </div>

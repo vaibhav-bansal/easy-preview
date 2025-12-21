@@ -4,7 +4,7 @@ A web tool to preview any URL (Figma prototypes, localhost, production sites) in
 
 ## Quick Start
 
-⚠️ **Important**: This app uses ES modules and Material Web components, so it **must be served over HTTP/HTTPS**. Opening `index.html` directly with `file://` protocol will not work.
+⚠️ **Important**: This app uses ES modules, so it **must be served over HTTP/HTTPS**. Opening `index.html` directly with `file://` protocol will not work.
 
 ### Option 1: Python HTTP Server (Recommended)
 
@@ -58,9 +58,8 @@ No build process required! Just edit the files and refresh your browser.
 ## Tech Stack
 
 - **HTML/CSS/JS** - Vanilla, no frameworks
-- **Material Web** - UI components (loaded via CDN)
-- **Tailwind CSS** - Utility classes (loaded via CDN)
-- **Material Symbols** - Icons (via Google Fonts)
+- **Tailwind CSS 4.1** - Utility-first CSS framework (loaded via CDN)
+- **Inline SVG Icons** - Custom SVG icons for UI elements
 
 ## Project Status
 

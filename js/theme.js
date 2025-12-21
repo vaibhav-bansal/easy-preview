@@ -10,13 +10,6 @@ const THEMES = {
   LIGHT: 'light'
 };
 
-// Theme icons
-const THEME_ICONS = {
-  [THEMES.SYSTEM]: 'contrast',
-  [THEMES.DARK]: 'dark_mode',
-  [THEMES.LIGHT]: 'light_mode'
-};
-
 // Theme labels
 const THEME_LABELS = {
   [THEMES.SYSTEM]: 'System Theme',
@@ -206,9 +199,35 @@ function updateThemeButton(theme) {
   const button = document.getElementById('theme-toggle');
   if (!button) return;
   
-  const icon = button.querySelector('.material-symbols-outlined');
-  if (icon) {
-    icon.textContent = THEME_ICONS[theme];
+  // Theme icon SVGs
+  const themeIcons = {
+    [THEMES.SYSTEM]: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2v20M12 2a10 10 0 0 1 10 10M12 2a10 10 0 0 0-10 10"/>
+    </svg>`,
+    [THEMES.DARK]: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>`,
+    [THEMES.LIGHT]: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>`
+  };
+  
+  // Replace the icon (remove any existing SVG or span, add new SVG)
+  const existingIcon = button.querySelector('svg');
+  if (existingIcon) {
+    existingIcon.outerHTML = themeIcons[theme] || themeIcons[THEMES.SYSTEM];
+  } else {
+    // Fallback: if no SVG exists, create one
+    button.innerHTML = themeIcons[theme] || themeIcons[THEMES.SYSTEM];
   }
   
   button.title = THEME_LABELS[theme];

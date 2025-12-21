@@ -152,7 +152,12 @@ function loadPreview(url) {
   // Show loading state
   if (previewPlaceholder) {
     previewPlaceholder.innerHTML = `
-      <span class="material-symbols-outlined text-6xl mb-4 opacity-50 animate-pulse">hourglass_empty</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 mb-4 opacity-50 animate-pulse">
+        <path d="M5 22h14"/>
+        <path d="M5 2h14"/>
+        <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/>
+        <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
+      </svg>
       <p>Loading preview...</p>
     `;
     previewPlaceholder.classList.remove('hidden');
@@ -266,7 +271,10 @@ function showFrameBlockedError(url) {
   const domain = new URL(url).hostname;
   
   previewPlaceholder.innerHTML = `
-    <span class="material-symbols-outlined text-6xl mb-4 opacity-50 text-yellow-400">block</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 mb-4 opacity-50 text-yellow-400">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+    </svg>
     <p class="text-yellow-400 font-medium mb-2">Cannot preview this website</p>
     <p class="text-gray-400 text-sm mb-4 px-4 text-center">
       ${domain} has security restrictions that prevent it from being displayed in an iframe.<br>
@@ -275,7 +283,11 @@ function showFrameBlockedError(url) {
     <button 
       onclick="window.open('${url}', '_blank')"
       class="mt-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto">
-      <span class="material-symbols-outlined text-lg">open_in_new</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
       Open in New Tab
     </button>
   `;
@@ -292,7 +304,11 @@ function showGenericError(url) {
   previewFrame.classList.add('hidden');
   
   previewPlaceholder.innerHTML = `
-    <span class="material-symbols-outlined text-6xl mb-4 opacity-50 text-red-400">error</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-24 h-24 mb-4 opacity-50 text-red-400">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
     <p class="text-red-400 font-medium mb-2">Failed to load URL</p>
     <p class="text-gray-400 text-sm mb-4 px-4 text-center">
       The URL could not be loaded. Please check the URL and try again.
@@ -300,7 +316,11 @@ function showGenericError(url) {
     <button 
       onclick="window.open('${url}', '_blank')"
       class="mt-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto">
-      <span class="material-symbols-outlined text-lg">open_in_new</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
       Open in New Tab
     </button>
   `;
