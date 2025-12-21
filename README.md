@@ -37,6 +37,20 @@ Then open: `http://localhost:8000`
 vercel
 ```
 
+## Limitations
+
+⚠️ **CSP/X-Frame-Options Restrictions**: Some websites (like `claude.com`, `google.com`, `facebook.com`) have security headers (`Content-Security-Policy: frame-ancestors` or `X-Frame-Options`) that prevent them from being embedded in iframes. This is a security feature to protect users from clickjacking attacks.
+
+**What happens when a site is blocked:**
+- The app will detect the restriction and show a helpful error message
+- You can click "Open in New Tab" to view the site directly
+- This is a browser security feature and cannot be bypassed from client-side code
+
+**Sites that typically work:**
+- Figma prototypes
+- Most localhost development servers
+- Sites that allow embedding (no CSP/X-Frame-Options restrictions)
+
 ## Development
 
 No build process required! Just edit the files and refresh your browser.
