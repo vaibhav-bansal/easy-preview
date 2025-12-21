@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Preview - Responsive Viewport Previewer</title>
+  <meta name="description" content="Preview any URL in specific device viewports. Perfect for testing Figma prototypes, localhost, and production sites across different screen sizes.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f3e8ff',
+              100: '#e9d5ff',
+              500: '#6750a4',
+              600: '#5b45a0',
+              700: '#4f3a94',
+            },
+            surface: {
+              dark: '#121212',
+              'dark-2': '#1e1e1e',
+              'dark-3': '#2d2d2d',
+            }
+          },
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+            mono: ['Roboto Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #2d2d2d; }
+    ::-webkit-scrollbar-thumb { background: #404040; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+    
+    /* Material icon alignment */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    
+    /* Input focus states */
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6750a4;
+      box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3);
+    }
+    
+    /* Button hover */
+    .btn-icon:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-icon:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body class="bg-surface-dark text-white font-sans h-screen flex flex-col overflow-hidden">
+  
+  <!-- Header -->
+  <header class="flex items-center justify-between px-6 py-3 bg-surface-dark-2 border-b border-gray-700 shrink-0">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-primary-500 text-3xl">devices</span>
+      <h1 class="text-xl font-medium">Easy Preview</h1>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <!-- GitHub Link -->
+      <a href="https://github.com/vaibhav-bansal/easy-preview" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         title="View on GitHub"
+         class="btn-icon p-2 rounded-full transition-colors">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      
+      <!-- Feedback Button -->
+      <button id="feedback-button" 
+              title="Send Feedback" 
+              class="btn-icon p-2 rounded-full transition-colors"
+              disabled>
+        <span class="material-symbols-outlined">feedback</span>
+      </button>
+      
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" 
+              title="System Theme" 
+              class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10"
+              aria-label="System Theme">
+        <span class="material-symbols-outlined">contrast</span>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Toolbar -->
+  <div class="flex flex-wrap items-center gap-4 px-6 py-4 bg-surface-dark-2 border-b border-gray-700 shrink-0">
+    <!-- URL Input Section -->
+    <div class="flex items-center gap-3 flex-1 min-w-[300px]">
+      <input 
+        type="url" 
+        id="url-input"
+        placeholder="Enter URL (e.g., https://figma.com/proto/...)"
+        class="flex-1 px-4 py-2.5 bg-surface-dark-3 border border-gray-600 rounded-lg text-white placeholder-gray-400 text-sm"
+      >
+      
+      <button id="load-button" 
+              class="flex items-center gap-2 px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors">
+        <span class="material-symbols-outlined text-xl">play_arrow</span>
+        Load
+      </button>
+    </div>
+    
+    <!-- Device Selection Section -->
+    <div class="flex items-center gap-4">
+      <select id="device-select" 
+              class="px-4 py-2.5 bg-surface-dark-3 border border-gray-600 rounded-lg text-white text-sm min-w-[200px] cursor-pointer">
+        <!-- Options populated by JavaScript -->
+      </select>
+      
+      <!-- Dimension Inputs -->
+      <div class="flex items-center gap-2">
+        <label class="text-gray-400 text-sm">W</label>
+        <input 
+          type="number" 
+          id="width-input"
+          min="200"
+          max="3840"
+          value="440"
+          class="w-20 px-3 py-2.5 bg-surface-dark-3 border border-gray-600 rounded-lg text-white text-sm text-center"
+        >
+        
+        <span class="text-gray-400">×</span>
+        
+        <label class="text-gray-400 text-sm">H</label>
+        <input 
+          type="number" 
+          id="height-input"
+          min="300"
+          max="2160"
+          value="956"
+          class="w-20 px-3 py-2.5 bg-surface-dark-3 border border-gray-600 rounded-lg text-white text-sm text-center"
+        >
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <button id="orientation-button" 
+                title="Toggle Orientation"
+                class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10">
+          <span class="material-symbols-outlined">screen_rotation</span>
+        </button>
+        
+        <button id="share-button" 
+                title="Share"
+                class="btn-icon p-2 rounded-full transition-colors hover:bg-white/10"
+                disabled>
+          <span class="material-symbols-outlined">share</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Preview Area -->
+  <main class="flex-1 flex flex-col items-center justify-center p-6 bg-surface-dark overflow-auto">
+    <div id="preview-container" 
+         class="relative bg-surface-dark-3 border-2 border-gray-600 rounded-lg overflow-hidden shadow-2xl"
+         style="width: 440px; height: 956px;">
+      
+      <!-- Placeholder when no URL loaded -->
+      <div id="preview-placeholder" class="flex flex-col items-center justify-center h-full text-gray-400 text-center p-10">
+        <span class="material-symbols-outlined text-6xl mb-4 opacity-50">web</span>
+        <p>Enter a URL above and click Load to preview</p>
+      </div>
+      
+      <!-- Preview iframe -->
+      <iframe 
+        id="preview-frame" 
+        class="bg-white hidden"
+        style="width: 440px; height: 956px;"
+        title="Preview"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </div>
+    
+    <!-- Dimension Display -->
+    <div id="dimension-display" class="mt-3 text-sm text-gray-400 font-mono">440 × 956</div>
+  </main>
+  
+  <!-- Share Dialog (hidden, shown via JS) -->
+  <div id="share-dialog" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+    <div class="bg-surface-dark-2 rounded-xl p-6 w-full max-w-md border border-gray-700 shadow-2xl">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-medium">Share Preview</h2>
+        <button id="close-share-dialog" class="btn-icon p-1 rounded-full">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <p class="text-gray-400">Share functionality coming in Phase 4...</p>
+    </div>
+  </div>
+  
+  <!-- Theme Script -->
+  <script type="module">
+    import { initTheme } from './js/theme.js';
+    
+    // Initialize theme as early as possible
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+  </script>
+  
+  <!-- Application Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
