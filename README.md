@@ -1,6 +1,6 @@
 # Easy Preview
 
-A web tool to preview any URL (Figma prototypes, localhost, production sites) in specific device viewports, with shareable links that preserve the viewport settings.
+A web tool to preview any URL (Figma prototypes, localhost, production sites) in specific device viewports, with shareable links that preserve the viewport settings
 
 ## Quick Start
 
